@@ -4,39 +4,93 @@
   <meta charset="UTF-8">
   <title>Mensagem 💖</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
     body {
       margin: 0;
       height: 100vh;
-      background: linear-gradient(135deg, #ff4d6d, #ff8fa3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
       overflow: hidden;
       font-family: Arial, sans-serif;
+      background: url("fundo.jpg") no-repeat center center/cover;
     }
 
+    /* Camada escura pra melhorar leitura */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      z-index: 1;
+    }
+
+    /* Texto animado */
     .texto {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
       white-space: nowrap;
       font-size: 1.8em;
       color: white;
-      animation: mover 15s linear infinite;
+      z-index: 3;
+      animation: mover 18s linear infinite;
       padding: 0 20px;
-      text-align: center;
     }
 
     @keyframes mover {
-      from { transform: translateX(100%); }
-      to { transform: translateX(-100%); }
+      from { transform: translate(100%, -50%); }
+      to { transform: translate(-100%, -50%); }
+    }
+
+    /* Corações */
+    .heart {
+      position: absolute;
+      bottom: -50px;
+      color: rgba(255, 100, 150, 0.8);
+      font-size: 24px;
+      animation: subir linear infinite;
+      z-index: 2;
+    }
+
+    @keyframes subir {
+      from {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
+
+  <div class="overlay"></div>
 
   <div class="texto">
     Oi minha vida, decidi dar uma inovada e fiz isso, Eu te amo muito tabom?
     Feliz ano novo te desejo tudo de bom, (eu)
   </div>
 
+  <!-- Corações -->
+  <script>
+    function criarCoracao() {
+      const coracao = document.createElement("div");
+      coracao.classList.add("heart");
+      coracao.innerHTML = "❤️";
+      coracao.style.left = Math.random() * 100 + "vw";
+      coracao.style.fontSize = (20 + Math.random() * 20) + "px";
+      coracao.style.animationDuration = (4 + Math.random() * 4) + "s";
+
+      document.body.appendChild(coracao);
+
+      setTimeout(() => {
+        coracao.remove();
+      }, 8000);
+    }
+
+    setInterval(criarCoracao, 400);
+  </script>
+
 </body>
 </html>
+
